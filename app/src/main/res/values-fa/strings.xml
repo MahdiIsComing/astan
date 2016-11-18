@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">آستان مقدس شهدای سبزوار</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">تنظیمات</string>
+    <string name="QRscanner">QR اسکنر</string>
+    <string name="website">www.astan.ir</string>
+
+    <string name="Comments">دل‌‌نوشته‌ها</string>
+    <string name="search">جستجو</string>
+    <string name="about_us">درباره ما</string>
+    <string name="visitsite">وب سایت</string>
+
+    <string name="martyr_img_placeholder">وب سایت</string>
+
+
+
+</resources>

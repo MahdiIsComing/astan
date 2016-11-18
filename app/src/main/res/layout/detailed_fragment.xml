@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/MartyrTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/app_name"/>
+
+    <ImageView
+        android:id="@+id/MartyrImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxWidth="50dp"
+        android:src="@drawable/common_google_signin_btn_icon_dark_focused"/>
+    <TextView
+        android:id="@+id/MartyrBio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/search"/>
+
+</RelativeLayout>
