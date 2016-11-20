@@ -24,5 +24,6 @@
         android:layout_alignParentEnd="false"
         android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false" />
 </RelativeLayout>
