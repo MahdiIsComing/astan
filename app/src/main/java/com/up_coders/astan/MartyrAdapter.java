@@ -51,15 +51,15 @@ public class MartyrAdapter extends ArrayAdapter<Martyr> {
         //Display martyr name in the TextView widget
         Martyr martyr = martyrList.get(position);
         TextView tv = (TextView) view.findViewById(R.id.itemname);
-        tv.setText(martyr.getTitle());
+        tv.setText(martyr.getFirst_name() + " " + martyr.getLast_name());
 
         //Image
         Bitmap bitmap = imageCache.get(martyr.getId());
 
         if (bitmap != null) {
-        ImageView image = (ImageView) view.findViewById(R.id.itemicon);
-        image.setImageBitmap(martyr.getBitmap());
-        }else{
+            ImageView image = (ImageView) view.findViewById(R.id.itemicon);
+            image.setImageBitmap(martyr.getAvatar());
+        } else {
             MartyrAndView container = new MartyrAndView();
             container.martyr = martyr;
             container.view = view;
@@ -86,19 +86,18 @@ public class MartyrAdapter extends ArrayAdapter<Martyr> {
             MartyrAndView container = params[0];
             Martyr martyr = container.martyr;
 
-            if (martyr.getName().contains("portrait")) {
-                try {
-                    String imgeUrl = MainActivity.baseURl + martyr.getId() + "/download";
-                    InputStream in = (InputStream) new URL(imgeUrl).getContent();
-                    Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    martyr.setBitmap(bitmap);
-                    in.close();
-                    container.bitmap = bitmap;
-                    return container;
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            try {
+                String imgeUrl = MainActivity.baseURl + martyr.getId() + "/avatar" + "/download";
+                InputStream in = (InputStream) new URL(imgeUrl).getContent();
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                martyr.setAvatar(bitmap);
+                in.close();
+                container.bitmap = bitmap;
+                return container;
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             return null;

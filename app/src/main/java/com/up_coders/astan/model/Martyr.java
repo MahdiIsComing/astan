@@ -9,29 +9,14 @@ public class Martyr {
 
 
     private int id;
-    private String name;
-    private String file_path;
-    private String file_name;
-    private String file_size;
-    private String title;
-    private String description;
-    private String mime_type;
-    private String tag;
-    private String creation_dtime;
-    private String modif_dtime;
-    private String tenant;
-    private String submitter;
-    private String downloads;
-    private Bitmap bitmap;
-
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
+    private String first_name;
+    private String last_name;
+    private String birth_place;
+    private String martyrdom_place;
+    private String martyrdom_date;
+    private String birth_date;
+    private Bitmap avatar;
+    private String mission;
 
 
     public int getId() {
@@ -42,105 +27,70 @@ public class Martyr {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getFile_path() {
-        return file_path;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setFile_path(String file_path) {
-        this.file_path = file_path;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getFile_name() {
-        return file_name;
+    public String getBirth_place() {
+        return birth_place;
     }
 
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
+    public void setBirth_place(String birth_place) {
+        this.birth_place = birth_place;
     }
 
-    public String getFile_size() {
-        return file_size;
+    public String getMartyrdom_place() {
+        return martyrdom_place;
     }
 
-    public void setFile_size(String file_size) {
-        this.file_size = file_size;
+    public void setMartyrdom_place(String martyrdom_place) {
+        this.martyrdom_place = martyrdom_place;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMartyrdom_date() {
+        return martyrdom_date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMartyrdom_date(String martyrdom_date) {
+        this.martyrdom_date = martyrdom_date;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBirth_date() {
+        return birth_date;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBirth_date(String birth_date) {
+        this.birth_date = birth_date;
     }
 
-    public String getMime_type() {
-        return mime_type;
+    public Bitmap getAvatar() {
+        return avatar;
     }
 
-    public void setMime_type(String mime_type) {
-        this.mime_type = mime_type;
+    public void setAvatar(Bitmap avatar) {
+        this.avatar = avatar;
     }
 
-    public String getTag() {
-        return tag;
+    public String getMission() {
+        return mission;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setMission(String mission) {
+        this.mission = mission;
     }
 
-    public String getCreation_dtime() {
-        return creation_dtime;
-    }
-
-    public void setCreation_dtime(String creation_dtime) {
-        this.creation_dtime = creation_dtime;
-    }
-
-    public String getModif_dtime() {
-        return modif_dtime;
-    }
-
-    public void setModif_dtime(String modif_dtime) {
-        this.modif_dtime = modif_dtime;
-    }
-
-    public String getTenant() {
-        return tenant;
-    }
-
-    public void setTenant(String tenant) {
-        this.tenant = tenant;
-    }
-
-    public String getSubmitter() {
-        return submitter;
-    }
-
-    public void setSubmitter(String submitter) {
-        this.submitter = submitter;
-    }
-
-    public void setDownloads(String downloads) {
-        this.submitter = submitter;
-    }
-    public String getDownloads() { return downloads;  }
 
 }

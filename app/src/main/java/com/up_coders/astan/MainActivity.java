@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     public Integer martyrID;
 
-//    public static final String baseURl = "http://192.168.43.85:13952/api/cms/";
-    public static final String baseURl = "http://astan.sellonclouds.com/api/cms/";
+    //    public static final String baseURl = "http://192.168.43.85:13952/api/cms/";
+    public static final String baseURl = "http://martyr.sellonclouds.com/api/martyrs/";
 
 
     @Override
@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void onMartyrSelected(int ID){
+    public void onMartyrSelected(int ID) {
         martyrID = ID;
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        ft.replace(R.id.containerView, new TabFragment()).commit();
+        ft.replace(R.id.containerView, new TabFragment()).addToBackStack("TabFragment").commit();
 
     }
 
@@ -151,6 +151,18 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+        //TODO: mahdi 1395-09-16: add support to going to last fragment
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
+
     }
 
     @Override
@@ -218,7 +230,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            Toast.makeText(getApplicationContext(),"Inbox Selected",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
 //            ContentFragment fragment = new ContentFragment();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.frame,fragment);
@@ -287,7 +299,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    Integer getMartyrID(){
+    public Integer getMartyrID() {
+
         return martyrID;
     }
+
+    public List<Martyr> getMartyr() {
+        return martyrList;
+    }
+
+    public void setMartyrList(List<Martyr> martyrList) {
+        this.martyrList = martyrList;
+    }
+
 }

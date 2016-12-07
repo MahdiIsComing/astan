@@ -15,6 +15,9 @@ import org.json.JSONObject;
 
 public class MartyrJSONParser {
 
+    public MartyrJSONParser() {
+    }
+
     public static List<Martyr> parseFeed(String content) {
 
         try {
@@ -29,22 +32,15 @@ public class MartyrJSONParser {
                 Martyr martyr = new Martyr();
 
                 martyr.setId(obj.getInt("id"));
-                martyr.setName(obj.getString("name"));
-                martyr.setFile_path(obj.getString("file_path"));
-                martyr.setFile_name(obj.getString("file_name"));
-                martyr.setFile_size(obj.getString("file_size"));
-                martyr.setTitle(obj.getString("title"));
-                martyr.setCreation_dtime(obj.getString("creation_dtime"));
-                martyr.setModif_dtime(obj.getString("modif_dtime"));
-                martyr.setTag(obj.getString("tag"));
-                martyr.setMime_type(obj.getString("mime_type"));
-                martyr.setTenant(obj.getString("tenant"));
-                martyr.setSubmitter(obj.getString("submitter"));
-//                martyr.setDownloads(obj.getString("downloads"));
+                martyr.setFirst_name(obj.getString("first_name"));
+                martyr.setLast_name(obj.getString("last_name"));
+                martyr.setBirth_date(obj.getString("birth_date"));
+                martyr.setBirth_place(obj.getString("birth_place"));
+                martyr.setMartyrdom_date(obj.getString("martyrdom_date"));
+                martyr.setMartyrdom_place(obj.getString("martyrdom_place"));
+//                martyr.setMission(obj.getString("mission"));
 
-                if (martyr.getName().contains("portrait")) {
-                    MartyrList.add(martyr);
-                }
+                MartyrList.add(martyr);
             }
 
             return MartyrList;

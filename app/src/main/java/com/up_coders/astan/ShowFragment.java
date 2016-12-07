@@ -100,7 +100,7 @@ public class ShowFragment extends Fragment {
         }
 
         tasks = new ArrayList<>();
-        requestData(MainActivity.baseURl + "/find");
+        requestData(MainActivity.baseURl + "martyr/find");
 
     }
 
@@ -177,6 +177,8 @@ public class ShowFragment extends Fragment {
 
     private void updateDisplay(){
         recyclerView.setAdapter(new MyShowRecyclerViewAdapter(martyrList, mListener));
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setMartyrList(martyrList);
     }
     private class AsTasks extends AsyncTask<String, String, List<Martyr>> {
         @Override

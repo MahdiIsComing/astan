@@ -72,13 +72,13 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 
         holder.mItem = martyrList.get(position);
         holder.mIdView.setText(Integer.toString(martyrList.get(position).getId()));
-        holder.mContentView.setText(martyrList.get(position).getTitle());
+        holder.mContentView.setText(martyrList.get(position).getFirst_name() + " " +martyrList.get(position).getLast_name());
 
         //Image
         Bitmap bitmap = imageCache.get(holder.mItem.getId());
 
         if (bitmap != null){
-            holder.mImageView.setImageBitmap(holder.mItem.getBitmap());
+            holder.mImageView.setImageBitmap(holder.mItem.getAvatar());
         }else{
             MartyrAndView container = new MartyrAndView();
             container.martyr = holder.mItem;
@@ -121,12 +121,11 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
             MartyrAndView container = params[0];
             Martyr martyr = container.martyr;
 
-            if (martyr.getName().contains("portrait")) {
                 try {
-                    String imgeUrl = MainActivity.baseURl + martyr.getId() + "/download";
+                    String imgeUrl = MainActivity.baseURl + "martyr/" + martyr.getId() + "/avatar/download";
                     InputStream in = (InputStream) new URL(imgeUrl).getContent();
                     Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    martyr.setBitmap(bitmap);
+                    martyr.setAvatar(bitmap);
                     in.close();
                     container.bitmap = bitmap;
                     return container;
@@ -134,7 +133,6 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
             return null;
         }
 
