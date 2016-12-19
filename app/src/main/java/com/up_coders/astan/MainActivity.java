@@ -1,37 +1,36 @@
 package com.up_coders.astan;
 
-import android.app.*;
-import android.support.v4.app.*;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
-import android.widget.AdapterView;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.up_coders.astan.model.Martyr;
-import com.up_coders.astan.parser.*;
+import com.up_coders.astan.parser.MartyrJSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,9 @@ public class MainActivity extends AppCompatActivity
 
     //    public static final String baseURl = "http://192.168.43.85:13952/api/cms/";
     public static final String baseURl = "http://martyr.sellonclouds.com/api/martyrs/";
+
+    public static final String basePath = Environment.getExternalStorageDirectory().getPath() +
+            "/Astan";
 
 
     @Override
@@ -145,12 +147,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
 
         //TODO: mahdi 1395-09-16: add support to going to last fragment
         int count = getFragmentManager().getBackStackEntryCount();
@@ -193,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void requestData(String uri) {
+    public void requestData(String uri) {
         MyTask task = new MyTask();
         task.execute(uri);
     }
@@ -254,7 +256,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private class MyTask extends AsyncTask<String, String, List<Martyr>> {
+    public class MyTask extends AsyncTask<String, String, List<Martyr>> {
 
         @Override
         protected void onPreExecute() {

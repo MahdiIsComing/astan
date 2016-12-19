@@ -1,35 +1,23 @@
 package com.up_coders.astan;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.up_coders.astan.dummy.DummyContent;
-import com.up_coders.astan.dummy.DummyContent.DummyItem;
+import com.up_coders.astan.db.DbHandler;
 import com.up_coders.astan.model.Martyr;
 import com.up_coders.astan.parser.MartyrJSONParser;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +38,8 @@ public class ShowFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Martyr> martyrList;
 
+    DbHandler db;
+
     List<AsTasks> tasks;
 
     ProgressBar pr;
@@ -62,7 +52,8 @@ public class ShowFragment extends Fragment {
     }
 
     onMartyrSelectedListener mCallback;
-    public interface onMartyrSelectedListener{
+
+    public interface onMartyrSelectedListener {
         public void onMartyrSelected(int id);
     }
 
@@ -99,6 +90,11 @@ public class ShowFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
+        //TODO: mahdi: decide about how much rely to put on local and how much on remote
+        //check if sth is stored in DB
+        db = new DbHandler(getActivity());
+
+        //request data from server
         tasks = new ArrayList<>();
         requestData(MainActivity.baseURl + "martyr/find");
 
@@ -130,7 +126,7 @@ public class ShowFragment extends Fragment {
                         public void onItemClick(View v, int position) {
 
 
-                            Toast.makeText(getActivity(), Integer.toString(position),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 //                            FragmentTransaction ft = getFragmentManager().beginTransaction();
                             mCallback.onMartyrSelected(martyrList.get(position).getId());
 
@@ -175,15 +171,16 @@ public class ShowFragment extends Fragment {
         task.execute(uri);
     }
 
-    private void updateDisplay(){
+    private void updateDisplay() {
         recyclerView.setAdapter(new MyShowRecyclerViewAdapter(martyrList, mListener));
         MainActivity activity = (MainActivity) getActivity();
         activity.setMartyrList(martyrList);
     }
+
     private class AsTasks extends AsyncTask<String, String, List<Martyr>> {
         @Override
-        protected void onPreExecute(){
-            if (tasks.size() == 0){
+        protected void onPreExecute() {
+            if (tasks.size() == 0) {
                 //progressbar
 //                pr.setVisibility(View.VISIBLE);
 
@@ -192,7 +189,7 @@ public class ShowFragment extends Fragment {
         }
 
         @Override
-        protected List<Martyr> doInBackground(String... params){
+        protected List<Martyr> doInBackground(String... params) {
             String content = HttpManager.getData(params[0]);
             martyrList = MartyrJSONParser.parseFeed(content);
             return martyrList;
@@ -212,6 +209,11 @@ public class ShowFragment extends Fragment {
                 return;
             }
 
+            //add to database
+            for (Martyr martyr : martyrList) {
+                db.addMartyr(martyr);
+
+            }
             martyrList = result;
             updateDisplay();
 

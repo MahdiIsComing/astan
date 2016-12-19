@@ -17,6 +17,9 @@ public class Martyr {
     private String birth_date;
     private Bitmap avatar;
     private String mission;
+    private Integer martyr_bio_id;
+    private Integer martyr_memo_id;
+    private Integer martyr_will_id;
 
 
     public int getId() {
@@ -92,5 +95,27 @@ public class Martyr {
         this.mission = mission;
     }
 
+    public Integer getMartyr_bio_id() {
+        return martyr_bio_id;
+    }
 
+    public void setMartyr_bio_id(Integer martyr_bio_id) {
+        this.martyr_bio_id = martyr_bio_id;
+    }
+
+    public Integer getMartyr_memo_id() {
+        return martyr_memo_id;
+    }
+
+    public void setMartyr_memo_id(Integer martyr_memo_id) {
+        this.martyr_memo_id = martyr_memo_id;
+    }
+
+    public Integer getMartyr_will_id() {
+        return martyr_will_id;
+    }
+
+    public void setMartyr_will_id(Integer martyr_will_id) {
+        this.martyr_will_id = martyr_will_id;
+    }
 }

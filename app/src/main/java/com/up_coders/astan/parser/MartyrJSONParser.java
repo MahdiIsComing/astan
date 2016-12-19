@@ -6,17 +6,14 @@ package com.up_coders.astan.parser;
 
 import com.up_coders.astan.model.Martyr;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MartyrJSONParser {
+import java.util.ArrayList;
+import java.util.List;
 
-    public MartyrJSONParser() {
-    }
+public class MartyrJSONParser {
 
     public static List<Martyr> parseFeed(String content) {
 

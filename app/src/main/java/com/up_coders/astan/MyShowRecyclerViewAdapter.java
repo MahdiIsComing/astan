@@ -1,11 +1,10 @@
 package com.up_coders.astan;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.up_coders.astan.ShowFragment.OnListFragmentInteractionListener;
 import com.up_coders.astan.dummy.DummyContent.DummyItem;
 import com.up_coders.astan.model.Martyr;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecyclerViewAdapter.ViewHolder>{
+public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecyclerViewAdapter.ViewHolder> {
 
 //    private final List<DummyItem> mValues;
 
@@ -72,18 +71,32 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 
         holder.mItem = martyrList.get(position);
         holder.mIdView.setText(Integer.toString(martyrList.get(position).getId()));
-        holder.mContentView.setText(martyrList.get(position).getFirst_name() + " " +martyrList.get(position).getLast_name());
+        holder.mContentView.setText(martyrList.get(position).getFirst_name() + " " + martyrList.get(position).getLast_name());
 
         //Image
         Bitmap bitmap = imageCache.get(holder.mItem.getId());
+        //Check if avatar already downloaded
+        try {
+            String path = Environment.getExternalStorageDirectory().toString();
+            File dir = new File(path, "/Astan/Avatars/");
+            dir.mkdirs();
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inSampleSize = 2;
+            bitmap = BitmapFactory.decodeFile(dir +"/" + String.valueOf(holder.mItem.getId()));
 
-        if (bitmap != null){
+            martyrList.get(position).setAvatar(bitmap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (bitmap != null) {
             holder.mImageView.setImageBitmap(holder.mItem.getAvatar());
-        }else{
+        } else {
             MartyrAndView container = new MartyrAndView();
             container.martyr = holder.mItem;
             container.view = holder.mView;
-
+            //Download and save Image
             ImageLoader loader = new ImageLoader();
             loader.execute(container);
         }
@@ -101,6 +114,7 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
         });
 
     }
+
     @Override
     public int getItemCount() {
 //        return mValues.size();
@@ -117,33 +131,46 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 
     public class ImageLoader extends AsyncTask<MartyrAndView, Void, MartyrAndView> {
         @Override
-        protected MartyrAndView doInBackground(MartyrAndView... params){
+        protected MartyrAndView doInBackground(MartyrAndView... params) {
             MartyrAndView container = params[0];
             Martyr martyr = container.martyr;
+            // get avatar
+            try {
+                String imgeUrl = MainActivity.baseURl + "martyr/" + martyr.getId() + "/avatar/download";
+                InputStream in = (InputStream) new URL(imgeUrl).getContent();
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                martyr.setAvatar(bitmap);
+                in.close();
+                container.bitmap = bitmap;
+                return container;
 
-                try {
-                    String imgeUrl = MainActivity.baseURl + "martyr/" + martyr.getId() + "/avatar/download";
-                    InputStream in = (InputStream) new URL(imgeUrl).getContent();
-                    Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    martyr.setAvatar(bitmap);
-                    in.close();
-                    container.bitmap = bitmap;
-                    return container;
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
-        protected void onPostExecute(MartyrAndView martyrAndView){
+        protected void onPostExecute(MartyrAndView martyrAndView) {
             //Image load
             ImageView image = (ImageView) martyrAndView.view.findViewById(R.id.portrait);
             image.setImageBitmap(martyrAndView.bitmap);
 //            martyrAndView.martyr.setBitmap(martyrAndView.bitmap);
             imageCache.put(martyrAndView.martyr.getId(), martyrAndView.bitmap);
 
+            //save avatar
+            String path = Environment.getExternalStorageDirectory().toString();
+            File dir = new File(path, "/Astan/Avatars");
+            dir.mkdirs();
+            File avatar = new File(dir, String.valueOf(martyrAndView.martyr.getId()));
+            try {
+                FileOutputStream out = new FileOutputStream(avatar);
+                martyrAndView.bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }
@@ -153,7 +180,7 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
-//        public DummyItem mItem;
+        //        public DummyItem mItem;
         public Martyr mItem;
 
 
