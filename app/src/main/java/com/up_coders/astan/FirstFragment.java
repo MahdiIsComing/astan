@@ -31,8 +31,10 @@ public class FirstFragment extends Fragment {
         martyr = activity.getMartyr().get(MartyrID);
 
         ImageView avatar = (ImageView) view.findViewById(R.id.first_tab_avatar);
+        ImageView backImage = (ImageView) view.findViewById(R.id.backPick);
 
         avatar.setImageBitmap(martyr.getAvatar());
+        backImage.setImageBitmap(martyr.getAvatar());
 
         TextView martyrName = (TextView) view.findViewById(R.id.first_tab_name);
         TextView martyrBirth = (TextView) view.findViewById(R.id.first_tab_birth);

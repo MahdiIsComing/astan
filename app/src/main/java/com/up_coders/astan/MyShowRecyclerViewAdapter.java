@@ -2,9 +2,13 @@ package com.up_coders.astan;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,8 +74,16 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 //        holder.mContentView.setText(mValues.get(position).content);
 
         holder.mItem = martyrList.get(position);
-        holder.mIdView.setText(Integer.toString(martyrList.get(position).getId()));
-        holder.mContentView.setText(martyrList.get(position).getFirst_name() + " " + martyrList.get(position).getLast_name());
+        //show id in the 3rd column
+//        holder.mIdView.setText(Integer.toString(martyrList.get(poslition).getId()));
+        //Use Span to color word شهید
+        //TODO: madhi: check by breakpoint
+        final SpannableStringBuilder sb = new SpannableStringBuilder(
+                "شهید" + " " + martyrList.get(position).getFirst_name() + " "
+                        + martyrList.get(position).getLast_name());
+        final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.rgb(255, 0, 0));
+        sb.setSpan(fcs, 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        holder.mContentView.setText(sb);
 
         //Image
         Bitmap bitmap = imageCache.get(holder.mItem.getId());
@@ -177,7 +189,8 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        //show id in the 3rd column
+//        public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
         //        public DummyItem mItem;
@@ -187,7 +200,8 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
+            //show id in the 3rd column
+//            mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
             mImageView = (ImageView) view.findViewById(R.id.portrait);
 

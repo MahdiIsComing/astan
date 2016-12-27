@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">آستان مقدس شهدای سبزوار</string>
+    <string name="app_name">
+        شیدایی
+    </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -12,5 +14,19 @@
     <string name="about_us">درباره ما</string>
     <string name="visitsite">وب سایت</string>
 
-
+    <string name="TabIntro">
+        معرفی
+    </string>
+    <string name="TabBio">
+        زندگی‌نامه
+    </string>
+    <string name="TabMemo">
+        خاطرات
+    </string>
+    <string name="TabWill">
+        وصیت‌نامه
+    </string>
+    <string name="martyr">
+        شهید
+    </string>
 </resources>

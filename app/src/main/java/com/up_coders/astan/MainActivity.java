@@ -14,9 +14,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fm;
     FragmentTransaction ft;
+
+    private ShareActionProvider mShareActionProvider;
+
 
     TextView maintextview;
     //TextView output;
@@ -171,7 +176,20 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         return true;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -180,11 +198,11 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (isOnline()) {
-            requestData(baseURl + "/find");
-        } else {
-            Toast.makeText(this, "Network isn't available.", Toast.LENGTH_LONG).show();
-        }
+//        if (isOnline()) {
+//            requestData(baseURl + "/find");
+//        } else {
+//            Toast.makeText(this, "Network isn't available.", Toast.LENGTH_LONG).show();
+//        }
 
 
         //noinspection SimplifiableIfStatement
@@ -192,9 +210,23 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.menu_item_share) {
+            doShare();
+
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
+    public void doShare() {
+        // populate the share intent with data
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "thihsodi");
+        mShareActionProvider.setShareIntent(intent);
+
+    }
     public void requestData(String uri) {
         MyTask task = new MyTask();
         task.execute(uri);

@@ -3,6 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/backPick"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/first_tab_avatar"
@@ -10,14 +17,11 @@
         android:layout_height="128dp"
         android:src="@drawable/ic_menu_list"
         app:border_color="#FF000000"
-        android:layout_marginStart="24dp"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="24dp" />
+        android:layout_marginTop="133dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp" />
 
     <TextView
         android:id="@+id/first_tab_name"
@@ -25,12 +29,14 @@
         android:layout_height="wrap_content"
         android:autoLink="web"
         android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
         android:text=""
         android:textColor="#000"
+        android:textStyle="normal"
         android:layout_below="@+id/first_tab_avatar"
-        android:textStyle="normal"/>
+        android:layout_alignRight="@+id/first_tab_avatar"
+        android:layout_alignEnd="@+id/first_tab_avatar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="45dp" />
 
     <TextView
         android:id="@+id/first_tab_birth"

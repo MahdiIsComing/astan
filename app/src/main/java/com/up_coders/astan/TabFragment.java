@@ -18,7 +18,7 @@ public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 3 ;
+    public static int int_items = 4;
 
     public Integer id;
 
@@ -92,13 +92,13 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Intro";
+                    return "معرفی";
                 case 1 :
-                    return "Biography";
+                    return "زندگی‌نامه";
                 case 2 :
-                    return "Memorial";
+                    return "خاطرات";
                 case 3 :
-                    return "Will";
+                    return "وصیت‌نامه";
             }
             return null;
         }

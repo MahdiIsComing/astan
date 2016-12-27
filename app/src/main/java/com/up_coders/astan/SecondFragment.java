@@ -4,6 +4,7 @@ package com.up_coders.astan;
  * Created by mahdi on 10/25/16.
  */
 
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,6 +49,8 @@ public class SecondFragment extends Fragment {
         pB = (ProgressBar) view.findViewById(R.id.progressBar_secondTab);
         webView = (WebView) view.findViewById(R.id.webview_second);
 
+        pB.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary),
+                PorterDuff.Mode.SRC_IN);
 
                 /*TODO: mahdi: check if this ID has info in db or not
         and if there is no information about this ID, Add to db */

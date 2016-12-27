@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Astan</string>
+    <string name="app_name">Sheydaee</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,5 +11,7 @@
     <string name="Comments">Add Memories</string>
     <string name="about_us">About Us</string>
     <string name="visitsite">Web Site</string>
+
+    <string name="martyr">Martyr</string>
 
 </resources>
