@@ -3,6 +3,7 @@ package com.up_coders.astan;
 /**
  * Created by mahdi on 7/30/16.
  */
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PointF;
@@ -13,7 +14,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.up_coders.astan.QRCodeReaderView;
 import com.up_coders.astan.QRCodeReaderView.OnQRCodeReadListener;
 
 public class QRreader extends Activity implements OnQRCodeReadListener {
@@ -32,11 +32,12 @@ public class QRreader extends Activity implements OnQRCodeReadListener {
 
         myTextView = (TextView) findViewById(R.id.exampleTextView);
 
-        line_image = (ImageView) findViewById(R.id.red_line_image);
+        //TODO: mahdi: Change with vector
+        line_image = (ImageView) findViewById(R.id.red_line1_xml);
 
         TranslateAnimation mAnimation =
                 new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.ABSOLUTE, 0f,
-                        TranslateAnimation.RELATIVE_TO_PARENT, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.5f);
+                        TranslateAnimation.RELATIVE_TO_PARENT, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.4f);
         mAnimation.setDuration(1000);
         mAnimation.setRepeatCount(-1);
         mAnimation.setRepeatMode(Animation.REVERSE);

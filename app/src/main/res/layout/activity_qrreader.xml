@@ -3,33 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
+    android:backgroundTint="@color/colorPrimary"
     tools:context=".QRreader">
 
     <com.up_coders.astan.QRCodeReaderView
         android:id="@+id/qrreaderview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/exampleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        />
+        android:layout_below="@+id/qrreaderview"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:id="@+id/red_line_image"
+        android:id="@+id/red_line1.xml"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/exampleTextView"
         android:src="@drawable/red_line"
+        android:layout_marginTop="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
