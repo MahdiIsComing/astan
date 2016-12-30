@@ -13,5 +13,8 @@
     <string name="visitsite">Web Site</string>
 
     <string name="martyr">Martyr</string>
+        <string name="internetMessage">
+            Turn your network on in order to use application\'s whole capabilities.
+        </string>
 
 </resources>

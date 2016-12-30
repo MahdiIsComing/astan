@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.up_coders.astan.model.Martyr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,10 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String MARTYR_FNAME = "fname";
     private static final String MARTYR_LNAME = "lname";
     private static final String MARTYR_AVATAR_ID = "avatar";
+    private static final String MARTYR_BIRTH_PLACE = "bplace";
+    private static final String MARTYR_MARTYRDOM_PLACE = "mplace";
+    private static final String MARTYR_BIRTH_DATE = "bdate";
+    private static final String MARTYR_MARTYRDOM_DATE = "mdate";
     private static final String MARTYR_BIO_ID = "bio";
     private static final String MARTYR_MEMO_ID = "memo";
     private static final String MARTYR_WILL_ID = "will";
@@ -42,7 +47,9 @@ public class DbHandler extends SQLiteOpenHelper {
         String CREATE_MARTYRS_TABLE = "CREATE TABLE " + TABLE_MARTYRS + "("
                 + MARTYR_ID + " INTEGER PRIMARY KEY," + MARTYR_BIO_ID + " TEXT,"
                 + MARTYR_MEMO_ID + " TEXT," + MARTYR_WILL_ID + " TEXT," + MARTYR_FNAME + " TEXT," +
-                MARTYR_LNAME + " TEXT," + MARTYR_AVATAR_ID + " TEXT" + ")";
+                MARTYR_LNAME + " TEXT," + MARTYR_AVATAR_ID + " TEXT," + MARTYR_BIRTH_PLACE + " TEXT," +
+                MARTYR_MARTYRDOM_PLACE + " TEXT," + MARTYR_BIRTH_DATE + " TEXT,"
+                + MARTYR_MARTYRDOM_DATE + " TEXT" + ")";
         db.execSQL(CREATE_MARTYRS_TABLE);
     }
 
@@ -64,7 +71,12 @@ public class DbHandler extends SQLiteOpenHelper {
         values.put(MARTYR_ID, martyr.getId()); // Martyr ID
         values.put(MARTYR_FNAME, martyr.getFirst_name());
         values.put(MARTYR_LNAME, martyr.getLast_name());
-        if (martyr.getMartyr_bio_id() != null) {
+        values.put(MARTYR_BIRTH_DATE, martyr.getBirth_date());
+        values.put(MARTYR_BIRTH_PLACE, martyr.getBirth_place());
+        values.put(MARTYR_MARTYRDOM_DATE, martyr.getMartyrdom_date());
+        values.put(MARTYR_MARTYRDOM_PLACE, martyr.getMartyrdom_place());
+        if (martyr.getMartyr_bio_id() != null && martyr.getMartyr_memo_id() != null &&
+                martyr.getMartyr_will_id() != null) {
             values.put(MARTYR_BIO_ID, martyr.getMartyr_bio_id()); // Martyr BIO ID
             values.put(MARTYR_MEMO_ID, martyr.getMartyr_memo_id()); // Martyr MEMO ID
             values.put(MARTYR_WILL_ID, martyr.getMartyr_will_id()); // Martyr WILL ID
@@ -82,7 +94,8 @@ public class DbHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_MARTYRS,
                 new String[]{MARTYR_ID, MARTYR_BIO_ID, MARTYR_MEMO_ID, MARTYR_WILL_ID, MARTYR_FNAME,
-                        MARTYR_LNAME, MARTYR_AVATAR_ID},
+                        MARTYR_LNAME, MARTYR_AVATAR_ID, MARTYR_BIRTH_PLACE, MARTYR_MARTYRDOM_PLACE,
+                        MARTYR_BIRTH_DATE, MARTYR_MARTYRDOM_DATE},
                 MARTYR_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
@@ -90,7 +103,8 @@ public class DbHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             String[] martyrContent = {cursor.getString(0), cursor.getString(1),
                     cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                    cursor.getString(5), cursor.getString(6)
+                    cursor.getString(5), cursor.getString(6), cursor.getString(7),
+                    cursor.getString(8), cursor.getString(9), cursor.getString(10)
             };
             // return contents id
             return martyrContent;
@@ -101,7 +115,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     // Getting All Contacts
     public List<Martyr> getAllMartyrs() {
-        List<Martyr> martyrList = null;
+        List<Martyr> martyrList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_MARTYRS;
 
@@ -120,7 +134,13 @@ public class DbHandler extends SQLiteOpenHelper {
                 martyr.setFirst_name(cursor.getString(4));
                 martyr.setLast_name(cursor.getString(5));
 
-//                martyr.(Integer.parseInt(cursor.getString(6)));
+                martyr.setBirth_place(cursor.getString(7));
+                martyr.setMartyrdom_place(cursor.getString(8));
+                martyr.setBirth_date(cursor.getString(9));
+                martyr.setMartyrdom_date(cursor.getString(10));
+
+                martyrList.add(martyr);
+
             }while (cursor.moveToNext());
         }
         return martyrList;
@@ -131,7 +151,6 @@ public class DbHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT  * FROM " + TABLE_MARTYRS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
 
         // return count
         return cursor.getCount();

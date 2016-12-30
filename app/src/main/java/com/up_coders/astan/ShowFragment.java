@@ -43,6 +43,7 @@ public class ShowFragment extends Fragment {
     List<AsTasks> tasks;
 
     ProgressBar pr;
+    Activity ac = getActivity();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -94,9 +95,18 @@ public class ShowFragment extends Fragment {
         //check if sth is stored in DB
         db = new DbHandler(getActivity());
 
-        //request data from server
-        tasks = new ArrayList<>();
-        requestData(MainActivity.baseURl + "martyr/find");
+        if (db.getMartyrsCount() > 0) {
+            this.martyrList = db.getAllMartyrs();
+        } else {
+            if (MainActivity.isOnline(this.getContext())) {
+                //request data from server
+                tasks = new ArrayList<>();
+                requestData(MainActivity.baseURl + "martyr/find");
+            } else {
+                Activity mainActivity = getActivity();
+                Toast.makeText(mainActivity, "Network connection is required.", Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 
@@ -126,7 +136,7 @@ public class ShowFragment extends Fragment {
                         public void onItemClick(View v, int position) {
 
 
-                            Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 //                            FragmentTransaction ft = getFragmentManager().beginTransaction();
                             mCallback.onMartyrSelected(martyrList.get(position).getId());
 
@@ -134,6 +144,7 @@ public class ShowFragment extends Fragment {
                     })
             );
         }
+        updateDisplay();
         return view;
     }
 

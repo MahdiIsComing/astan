@@ -119,6 +119,11 @@ public class MainActivity extends AppCompatActivity
 
         tasks = new ArrayList<>();
 
+        //Check for internet connection and Notify User.
+        if (!isOnline(this))
+            Toast.makeText(MainActivity.this, R.string.internetMessage, Toast.LENGTH_LONG).show();
+
+
     }
 
 
@@ -138,8 +143,8 @@ public class MainActivity extends AppCompatActivity
         list.setAdapter(adapter);
     }
 
-    public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
         if (netinfo != null && netinfo.isConnectedOrConnecting()) {
             return true;
@@ -152,14 +157,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
 
-        //TODO: mahdi 1395-09-16: add support to going to last fragment
+        //Going to last fragment
         int count = getFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
@@ -242,6 +241,7 @@ public class MainActivity extends AppCompatActivity
                 String result = data.getStringExtra("result");
 
                 maintextview.setText(result);
+                //TODO: mahdi: run TabFragment
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result

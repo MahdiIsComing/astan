@@ -8,10 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.up_coders.astan.QRCodeReaderView.OnQRCodeReadListener;
@@ -20,7 +16,7 @@ public class QRreader extends Activity implements OnQRCodeReadListener {
 
     private TextView myTextView;
     private QRCodeReaderView mydecoderview;
-    private ImageView line_image;
+    //private ImageView line_image;
     public String result;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +28,17 @@ public class QRreader extends Activity implements OnQRCodeReadListener {
 
         myTextView = (TextView) findViewById(R.id.exampleTextView);
 
-        //TODO: mahdi: Change with vector
-        line_image = (ImageView) findViewById(R.id.red_line1_xml);
-
-        TranslateAnimation mAnimation =
-                new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.ABSOLUTE, 0f,
-                        TranslateAnimation.RELATIVE_TO_PARENT, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.4f);
-        mAnimation.setDuration(1000);
-        mAnimation.setRepeatCount(-1);
-        mAnimation.setRepeatMode(Animation.REVERSE);
-        mAnimation.setInterpolator(new LinearInterpolator());
-        line_image.setAnimation(mAnimation);
+//        //TODO: mahdi: Change with vector
+//        line_image = (ImageView) findViewById(R.id.red_line_png);
+//
+//        TranslateAnimation mAnimation =
+//                new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.ABSOLUTE, 0f,
+//                        TranslateAnimation.RELATIVE_TO_PARENT, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.4f);
+//        mAnimation.setDuration(1000);
+//        mAnimation.setRepeatCount(-1);
+//        mAnimation.setRepeatMode(Animation.REVERSE);
+//        mAnimation.setInterpolator(new LinearInterpolator());
+//        line_image.setAnimation(mAnimation);
     }
 
     // Called when a QR is decoded

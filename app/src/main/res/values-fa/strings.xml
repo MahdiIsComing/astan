@@ -29,4 +29,7 @@
     <string name="martyr">
         شهید
     </string>
+    <string name="internetMessage">
+        برای استفاده از تمام قابلیت‌های برنامه اتصال داده را فعال کنید.
+    </string>
 </resources>
