@@ -51,6 +51,7 @@ public class SecondFragment extends Fragment {
 
         pB.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary),
                 PorterDuff.Mode.SRC_IN);
+        pB.setVisibility(View.VISIBLE);
 
                 /*TODO: mahdi: check if this ID has info in db or not
         and if there is no information about this ID, Add to db */
@@ -95,12 +96,6 @@ public class SecondFragment extends Fragment {
             Integer MartyrID = activity.martyrID - 1;
             martyr = activity.getMartyr().get(MartyrID);
             this.db = new DbHandler(activity);
-
-            //TODO:mahdi: review here
-//            if (db.getMartyr(martyr.getId()) != null || db.getMartyr(martyr.getId())[1] != null) {
-//                updateDisplay(readFile(martyr.getMartyr_bio_id().toString()));
-//            }
-        } else {
         }
     }
 
@@ -159,7 +154,6 @@ public class SecondFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            pB.setVisibility(View.GONE);
             updateDisplay(result);
         }
 
@@ -200,7 +194,6 @@ public class SecondFragment extends Fragment {
     }
 
     protected void updateDisplay(String result) {
-        pB.setVisibility(View.GONE);
         WebSettings ws = webView.getSettings();
         ws.setDefaultTextEncodingName("utf-8");
         webView.loadDataWithBaseURL(null, "", "text/html", "UTF-8", null);
@@ -209,6 +202,7 @@ public class SecondFragment extends Fragment {
                 "<style> div{line-height: 160%;text-align: justify;text-indent: 30px; padding: 5px;}</style></head>" +
                 "<body dir=\"rtl\"><div id=\"maindiv\">" + result + " </div>" +
                 "</body></html>";
+        pB.setVisibility(View.GONE);
         webView.loadData(intro, "text/html; charset=utf-8", "utf-8");
 
     }
@@ -216,6 +210,7 @@ public class SecondFragment extends Fragment {
     private class NetRequest extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
+            pB.setVisibility(View.VISIBLE);
             super.onPreExecute();
         }
 

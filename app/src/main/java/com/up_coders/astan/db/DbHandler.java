@@ -127,9 +127,13 @@ public class DbHandler extends SQLiteOpenHelper {
             do{
                 Martyr martyr = new Martyr();
                 martyr.setId(Integer.parseInt(cursor.getString(0)));
-                martyr.setMartyr_bio_id(Integer.parseInt(cursor.getString(1)));
-                martyr.setMartyr_memo_id(Integer.parseInt(cursor.getString(2)));
-                martyr.setMartyr_will_id(Integer.parseInt(cursor.getString(3)));
+                try {
+                    martyr.setMartyr_bio_id(Integer.parseInt(cursor.getString(1)));
+                    martyr.setMartyr_memo_id(Integer.parseInt(cursor.getString(2)));
+                    martyr.setMartyr_will_id(Integer.parseInt(cursor.getString(3)));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 martyr.setFirst_name(cursor.getString(4));
                 martyr.setLast_name(cursor.getString(5));

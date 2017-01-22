@@ -63,6 +63,9 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_show, parent, false);
+
+        pb = (ProgressBar) view.findViewById(R.id.list_progressbar);
+        pb.setVisibility(View.GONE);
         return new ViewHolder(view);
     }
 
@@ -90,12 +93,9 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
         //Check if avatar already downloaded
         try {
             String path = Environment.getExternalStorageDirectory().toString();
-            File dir = new File(path, "/Astan/Avatars/");
+            File dir = new File(MainActivity.basePath, "/Avatars/");
             dir.mkdirs();
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inSampleSize = 2;
             bitmap = BitmapFactory.decodeFile(dir +"/" + String.valueOf(holder.mItem.getId()));
-
             martyrList.get(position).setAvatar(bitmap);
 
         } catch (Exception e) {
@@ -142,6 +142,13 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
     }
 
     public class ImageLoader extends AsyncTask<MartyrAndView, Void, MartyrAndView> {
+
+        @Override
+        protected void onPreExecute() {
+            pb.setVisibility(View.VISIBLE);
+            super.onPreExecute();
+        }
+
         @Override
         protected MartyrAndView doInBackground(MartyrAndView... params) {
             MartyrAndView container = params[0];
@@ -172,7 +179,7 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
 
             //save avatar
             String path = Environment.getExternalStorageDirectory().toString();
-            File dir = new File(path, "/Astan/Avatars");
+            File dir = new File(MainActivity.basePath, "/Avatars");
             dir.mkdirs();
             File avatar = new File(dir, String.valueOf(martyrAndView.martyr.getId()));
             try {
@@ -183,7 +190,7 @@ public class MyShowRecyclerViewAdapter extends RecyclerView.Adapter<MyShowRecycl
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            pb.setVisibility(View.GONE);
         }
     }
 

@@ -97,6 +97,10 @@ public class ShowFragment extends Fragment {
 
         if (db.getMartyrsCount() > 0) {
             this.martyrList = db.getAllMartyrs();
+            if (MainActivity.isOnline(this.getContext())) {
+                tasks = new ArrayList<>();
+                requestData(MainActivity.baseURl + "martyr/find");
+            }
         } else {
             if (MainActivity.isOnline(this.getContext())) {
                 //request data from server
