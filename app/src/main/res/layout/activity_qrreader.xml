@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorPrimary"
-    tools:context=".QRreader"
+    tools:context="ir.upcoders.sheydaee.QRreader"
     android:background="@color/colorPrimaryDark">
 
-    <com.up_coders.astan.QRCodeReaderView
+    <ir.upcoders.sheydaee.QRCodeReaderView
         android:id="@+id/qrreaderview"
         android:layout_width="250dp"
         android:layout_height="250dp"

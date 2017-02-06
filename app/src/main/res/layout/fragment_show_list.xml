@@ -12,7 +12,7 @@
     android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
     android:clickable="true"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.up_coders.astan.ShowFragment"
+    tools:context="ir.upcoders.sheydaee.ShowFragment"
     tools:listitem="@layout/fragment_show"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"></android.support.v7.widget.RecyclerView>

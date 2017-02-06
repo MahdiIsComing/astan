@@ -77,7 +77,7 @@
         android:layout_below="@+id/first_tab_martyrdom"
         android:textStyle="normal"/>
 
-    <!--<com.up_coders.astan.ptextview.PersianTextView-->
+    <!--<ir.upcoders.sheydaee.ptextview.PersianTextView-->
         <!--android:id="@+id/first_tab_ptv"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
